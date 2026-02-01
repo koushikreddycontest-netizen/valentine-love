@@ -110,19 +110,22 @@ animation-fill-mode:forwards;
 100%{transform:rotate(0) scale(1);opacity:1}
 }
 
-/* Cards */
+/* Container */
 .container{
 display:flex;
-gap:50px;
-flex-wrap:wrap;
+flex-direction:column;
+gap:40px;
 justify-content:center;
 align-items:center;
+width:100%;
+max-width:500px;
 z-index:5;
 }
 
+/* Cards */
 .box,.flip-box{
-width:420px;
-height:380px;
+width:100%;
+min-height:300px;
 background:linear-gradient(145deg,#ffffff,#ffe6f0);
 border-radius:30px;
 box-shadow:0 25px 70px rgba(0,0,0,0.6);
@@ -147,13 +150,13 @@ margin-bottom:30px;
 .buttons{
 width:100%;
 display:flex;
-justify-content:space-between;
-padding:0 30px;
+justify-content:center;
+gap:20px;
 }
 
 button{
-width:130px;
-height:48px;
+width:140px;
+height:50px;
 font-size:16px;
 border:none;
 border-radius:40px;
@@ -190,6 +193,7 @@ height:100%;
 position:relative;
 transition:transform 1s;
 transform-style:preserve-3d;
+min-height:300px;
 }
 
 .flip-box.flipped .flip-inner{
@@ -261,7 +265,6 @@ border:2px solid white;
 
 @media(max-width:768px){
 #nameContainer{font-size:50px;letter-spacing:8px}
-.box,.flip-box{width:90%;height:auto;min-height:340px}
 }
 </style>
 </head>
@@ -311,9 +314,6 @@ const herName="CHANDU";
 const nameContainer=document.getElementById("nameContainer");
 const animations=["bounce","flip","float","slide","zoom","spin"];
 
-/* Animate Name */
-function animateName(){
-nameContainer.innerHTML="";
 herName.split("").forEach((char,index)=>{
 const span=document.createElement("span");
 span.innerText=char;
@@ -322,12 +322,9 @@ span.classList.add(animations[index % animations.length]);
 span.style.animationDelay=(index*0.3)+"s";
 nameContainer.appendChild(span);
 });
-}
-animateName();
 
 /* Floating Hearts */
 const heartContainer=document.querySelector(".hearts");
-
 function createHeart(){
 const heart=document.createElement("div");
 heart.classList.add("heart");
@@ -338,7 +335,6 @@ heart.style.fontSize=(Math.random()*20+15)+"px";
 heartContainer.appendChild(heart);
 setTimeout(()=>{heart.remove();},6000);
 }
-
 setInterval(createHeart,400);
 
 /* YES */
@@ -347,17 +343,14 @@ document.getElementById("overlay").classList.add("show");
 for(let i=0;i<25;i++){createHeart();}
 }
 
-/* Back */
 function goBack(){
 document.getElementById("overlay").classList.remove("show");
 }
 
-/* Video Call */
 function videoCall(){
 window.location.href="https://wa.me/";
 }
 
-/* NO Escape */
 const noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",moveNo);
 noBtn.addEventListener("touchstart",moveNo);
@@ -371,7 +364,6 @@ noBtn.style.top=y+"px";
 noBtn.style.zIndex="100";
 }
 
-/* Flip */
 function flipCard(el){
 el.classList.toggle("flipped");
 }
