@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+min-height:100svh;
+background:radial-gradient(circle at top,#ff4e8a,#ff0066,#2b0033);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+overflow-x:hidden;
+padding-top:120px;
+position:relative;
+}
+
+/* Floating Hearts */
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+z-index:1;
+}
+
+.heart{
+position:absolute;
+color:#ff99cc;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh);opacity:1}
+100%{transform:translateY(110vh);opacity:0}
+}
+
+/* Name Styling */
+#nameContainer{
+position:absolute;
+top:40px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Great Vibes',cursive;
+font-size:70px;
+color:white;
+letter-spacing:12px;
+z-index:10;
+animation:glow 3s infinite alternate;
+}
+
+@keyframes glow{
+0%{text-shadow:0 0 5px #fff}
+50%{text-shadow:0 0 20px #ff99cc,0 0 40px #ff4e8a}
+100%{text-shadow:0 0 5px #fff}
+}
+
+.letter{
+display:inline-block;
+opacity:0;
+animation-fill-mode:forwards;
+}
+
+.bounce{animation:bounceIn 1.6s ease forwards;}
+.flip{animation:flipIn 1.8s ease forwards;}
+.float{animation:floatIn 1.8s ease forwards;}
+.slide{animation:slideIn 1.5s ease forwards;}
+.zoom{animation:zoomIn 1.5s ease forwards;}
+.spin{animation:spinIn 1.5s ease forwards;}
+
+@keyframes bounceIn{
+0%{transform:translateY(-350px);opacity:0}
+60%{transform:translateY(25px);opacity:1}
+80%{transform:translateY(-8px)}
+100%{transform:translateY(0);opacity:1}
+}
+
+@keyframes flipIn{
+0%{transform:rotateY(180deg) scale(0);opacity:0}
+100%{transform:rotateY(0) scale(1);opacity:1}
+}
+
+@keyframes floatIn{
+0%{transform:translateX(-450px) translateY(120px);opacity:0}
+100%{transform:translateX(0) translateY(0);opacity:1}
+}
+
+@keyframes slideIn{
+0%{transform:translateX(450px);opacity:0}
+100%{transform:translateX(0);opacity:1}
+}
+
+@keyframes zoomIn{
+0%{transform:scale(0);opacity:0}
+100%{transform:scale(1);opacity:1}
+}
+
+@keyframes spinIn{
+0%{transform:rotate(540deg) scale(0);opacity:0}
+100%{transform:rotate(0) scale(1);opacity:1}
+}
+
+/* Cards */
+.container{
+display:flex;
+gap:50px;
+flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+z-index:5;
+}
+
+.box,.flip-box{
+width:420px;
+height:380px;
+background:linear-gradient(145deg,#ffffff,#ffe6f0);
+border-radius:30px;
+box-shadow:0 25px 70px rgba(0,0,0,0.6);
+padding:30px;
+text-align:center;
+}
+
+.box{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+
+h2{
+font-size:24px;
+color:#ff0066;
+margin-bottom:30px;
+}
+
+/* Buttons */
+.buttons{
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:0 30px;
+}
+
+button{
+width:130px;
+height:48px;
+font-size:16px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.yes{
+background:linear-gradient(45deg,#ff0066,#ff4e8a);
+color:white;
+box-shadow:0 8px 25px rgba(255,0,102,0.6);
+animation:heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat{
+0%{transform:scale(1)}
+25%{transform:scale(1.1)}
+50%{transform:scale(1)}
+75%{transform:scale(1.1)}
+100%{transform:scale(1)}
+}
+
+.no{
+background:#ddd;
+color:#333;
+}
+
+/* Flip Card */
+.flip-box{perspective:1200px;cursor:pointer;}
+
+.flip-inner{
+width:100%;
+height:100%;
+position:relative;
+transition:transform 1s;
+transform-style:preserve-3d;
+}
+
+.flip-box.flipped .flip-inner{
+transform:rotateY(180deg);
+}
+
+.flip-front,.flip-back{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:30px;
+backface-visibility:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:25px;
+background:linear-gradient(145deg,#ffffff,#ffe6f0);
+}
+
+.flip-back{
+transform:rotateY(180deg);
+font-size:16px;
+color:#ff0066;
+line-height:1.6;
+}
+
+/* Overlay */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(45deg,#ff0066,#ff4e8a);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:24px;
+font-weight:600;
+opacity:0;
+pointer-events:none;
+transition:0.5s;
+z-index:50;
+text-align:center;
+gap:25px;
+padding:20px;
+}
+
+.overlay.show{
+opacity:1;
+pointer-events:auto;
+}
+
+.overlay button{
+background:white;
+color:#ff0066;
+width:180px;
+height:50px;
+font-weight:600;
+}
+
+.backBtn{
+background:transparent !important;
+color:white !important;
+border:2px solid white;
+}
+
+@media(max-width:768px){
+#nameContainer{font-size:50px;letter-spacing:8px}
+.box,.flip-box{width:90%;height:auto;min-height:340px}
+}
+</style>
+</head>
+<body>
+
+<div class="hearts"></div>
+<div id="nameContainer"></div>
+
+<div class="container">
+
+<div class="box">
+<h2>Will You Be My Valentine? ❤️</h2>
+<div class="buttons">
+<button class="yes" onclick="yesClick()">Yes 💖</button>
+<button class="no" id="noBtn">No 💔</button>
+</div>
+</div>
+
+<div class="flip-box" onclick="flipCard(this)">
+<div class="flip-inner">
+<div class="flip-front">
+<h2>Na Manasuloni Maatalu 💌</h2>
+</div>
+<div class="flip-back">
+Oye Nanah,<br><br>
+Nanu Chaala Baaga Chuskuntav<br>
+Naku Chaala Close Ayipoyav<br>
+Na Low Times Lo You Were There Every Time<br>
+Nenu Eni Pichipuku Panulu Chesina Barinchav<br>
+Elage Na Life Antha Nathone Undi Mana Pillala Muddi Kaduguthav Ani Korukuntu<br>
+Pakkana Valentine Proposal Accept Cheyakapothe Muddi Paguludhi<br>
+Ni CHINNU ❤️
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="overlay" id="overlay">
+<div>Video call me… I’m missing you 😢❤️</div>
+<button onclick="videoCall()">Video Call 📞</button>
+<button class="backBtn" onclick="goBack()">Back</button>
+</div>
+
+<script>
+const herName="CHANDU";
+const nameContainer=document.getElementById("nameContainer");
+const animations=["bounce","flip","float","slide","zoom","spin"];
+
+/* Animate Name */
+function animateName(){
+nameContainer.innerHTML="";
+herName.split("").forEach((char,index)=>{
+const span=document.createElement("span");
+span.innerText=char;
+span.classList.add("letter");
+span.classList.add(animations[index % animations.length]);
+span.style.animationDelay=(index*0.3)+"s";
+nameContainer.appendChild(span);
+});
+}
+animateName();
+
+/* Floating Hearts */
+const heartContainer=document.querySelector(".hearts");
+
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(Math.random()*3+3)+"s";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+heartContainer.appendChild(heart);
+setTimeout(()=>{heart.remove();},6000);
+}
+
+setInterval(createHeart,400);
+
+/* YES */
+function yesClick(){
+document.getElementById("overlay").classList.add("show");
+for(let i=0;i<25;i++){createHeart();}
+}
+
+/* Back */
+function goBack(){
+document.getElementById("overlay").classList.remove("show");
+}
+
+/* Video Call */
+function videoCall(){
+window.location.href="https://wa.me/";
+}
+
+/* NO Escape */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
+
+function moveNo(){
+const x=Math.random()*(window.innerWidth-150);
+const y=Math.random()*(window.innerHeight-70);
+noBtn.style.position="fixed";
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+noBtn.style.zIndex="100";
+}
+
+/* Flip */
+function flipCard(el){
+el.classList.toggle("flipped");
+}
+</script>
+
+</body>
+</html>
